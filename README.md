@@ -16,9 +16,14 @@ A Powerful Few-shot Voice Conversion and Text-to-Speech WebUI.<br><br>
 </div>
 
 ---
-## VC - new added in this fork：
+## VC - new added in this fork
+### Features
+1. Don't need any retrain
+2. Support non-fixed/any tartget speaker vocie, and don't need any training or finetuning. You can infer directly through webui!
+### Usages
 1. please config following source repo steps;
 2. open terminal, and execute `python vc_webui.py`
+---
 
 ## Features:
 
