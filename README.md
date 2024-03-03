@@ -18,7 +18,7 @@ A Powerful Few-shot Voice Conversion and Text-to-Speech WebUI.<br><br>
 ---
 ## VC - new added in this fork：
 1. please config following source repo steps;
-2. open terminal, and execure `python vc_webui.py`
+2. open terminal, and execute `python vc_webui.py`
 
 ## Features:
 
