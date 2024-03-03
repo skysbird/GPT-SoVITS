@@ -16,7 +16,7 @@ A Powerful Few-shot Voice Conversion and Text-to-Speech WebUI.<br><br>
 </div>
 
 ---
-## VC - new added in this fork
+## Voice Conversion (VC) - new added in this fork
 ### Features
 1. Don't need any retrain
 2. Support non-fixed/any tartget speaker vocie, and don't need any training or finetuning. You can infer directly through webui!
