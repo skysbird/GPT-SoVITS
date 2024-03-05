@@ -24,3 +24,29 @@ A Powerful Few-shot Voice Conversion and Text-to-Speech WebUI.<br><br>
 1. please config following source repo steps;
 2. open terminal, and execute `python vc_webui.py`
 ---
+
+## Demos
+
+Note: Target speaker from ChatGPT Assistant Voice
+
+### 1. demo 1
+
+source:
+
+https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/39248790-87f5-484f-8f48-532078412a80
+
+target:
+
+https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/d055d970-6b28-44e0-af9c-e0db0dc01e8c
+
+### 2. demo 2
+
+source:
+
+https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/08ab4451-bbeb-4940-a04a-a43df94f0e61
+
+target:
+
+https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/e1917fa3-e5e7-4d8e-89f1-e3f0a40fdd18
+
+---
