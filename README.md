@@ -30,62 +30,41 @@
 
 待转换音色：窃格瓦拉
 ### demo 1
-转换前：
-
+原声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/b5a5c3aa-6620-48fc-9c08-9b0711fbd76a
 
-
-
-
-转换后：
+变声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/6c29db50-471d-4a98-a557-55e356732662
 
 ### demo 2
-转换前：
-
+原声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/9cb746c8-9d23-4fca-98be-94496af85d14
 
-
-转换后：
-
-
+变声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/e71279b8-90a9-4dca-9214-31ed1803170a
 
 
-
 ### demo 3
-转换前：
-
+原声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/ca745165-fc75-44f8-9d92-50097e8d4924
 
-
-
-转换后：
-
-
+变声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/7378a676-1f89-4e0b-b931-b921228f7e2c
 
-
-
 ### demo 4
-转换前：
-
+原声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/f2fbc07a-816a-469b-ac27-996b3c2a4cdf
 
-
-转换后：
-
+变声：
 
 https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/dbcb0533-903d-49be-b03b-a8da4189b645
-
-
 
 ---
 
