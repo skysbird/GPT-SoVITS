@@ -68,5 +68,5 @@ https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/dbcb0533-903d-49be-
 
 ---
 
-## Stargazers over time
-[![Stargazers over time](https://starchart.cc/huangxu1991/GPT-SoVITS-VC.svg?variant=adaptive)](https://starchart.cc/huangxu1991/GPT-SoVITS-VC)
+## Star History
+[![Star History Chart](https://api.star-history.com/svg?repos=s3prl/s3prl&type=Date)](https://star-history.com/#s3prl/s3prl&Date)
