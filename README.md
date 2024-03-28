@@ -69,4 +69,4 @@ https://github.com/huangxu1991/GPT-SoVITS-VC/assets/40886464/dbcb0533-903d-49be-
 ---
 
 ## Star History
-[![Star History Chart](https://api.star-history.com/svg?repos=s3prl/s3prl&type=Date)](https://star-history.com/#s3prl/s3prl&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=huangxu1991/GPT-SoVITS-VC&type=Date)](https://star-history.com/#huangxu1991/GPT-SoVITS-VC&Date)
