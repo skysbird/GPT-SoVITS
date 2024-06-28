@@ -27,7 +27,7 @@ class MRTE(nn.Module):
             ge = 0
         # attn_mask = text_mask.unsqueeze(2) * ssl_mask.unsqueeze(-1)
 
-        # ssl_enc = self.c_pre(ssl_enc * ssl_mask)
+        ssl_enc = self.c_pre(ssl_enc * ssl_mask)
         # text_enc = self.text_pre(text * text_mask)
         attn_mask = None
         text_enc = None
