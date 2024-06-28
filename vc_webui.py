@@ -424,7 +424,7 @@ def vc_main(wav_path, text, language, prompt_wav, noise_scale=0.5):
     """
     language = dict_language[language]
 
-    # phones, word2ph, norm_text = get_cleaned_text_final(text, language)
+    phones, word2ph, norm_text = get_cleaned_text_final(text, language)
 
     spec = get_spepc(hps, prompt_wav) 
     codes = get_code_from_wav(wav_path)[None, None]  # 必须是 3D, [n_q, B, T]
@@ -434,15 +434,10 @@ def vc_main(wav_path, text, language, prompt_wav, noise_scale=0.5):
         quantized = F.interpolate(
             quantized, size=int(quantized.shape[-1] * 2), mode="nearest"
         )
-
-
-    #    def forward(self, y, y_lengths,  ge, test=None):
-
     _, m_p, logs_p, y_mask = vq_model.enc_p(
         quantized, torch.LongTensor([quantized.shape[-1]]), 
-        ge
+        torch.LongTensor(phones)[None], torch.LongTensor([len(phones)]), ge
     )
-
     z_p = m_p + torch.randn_like(m_p) * torch.exp(logs_p) * noise_scale
     z = vq_model.flow(z_p, y_mask, g=ge, reverse=True)
     o = vq_model.dec((z * y_mask)[:, :, :], g=ge)  # [B, D=1, T], torch.float32 (-1, 1)
