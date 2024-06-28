@@ -25,10 +25,13 @@ class MRTE(nn.Module):
     def forward(self, ssl_enc, ssl_mask, text, text_mask, ge, test=None):
         if ge == None:
             ge = 0
-        attn_mask = text_mask.unsqueeze(2) * ssl_mask.unsqueeze(-1)
+        # attn_mask = text_mask.unsqueeze(2) * ssl_mask.unsqueeze(-1)
 
-        ssl_enc = self.c_pre(ssl_enc * ssl_mask)
-        text_enc = self.text_pre(text * text_mask)
+        # ssl_enc = self.c_pre(ssl_enc * ssl_mask)
+        # text_enc = self.text_pre(text * text_mask)
+        attn_mask = None
+        text_enc = None
+        
         if test != None:
             if test == 0:
                 x = (

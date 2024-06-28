@@ -424,7 +424,7 @@ def vc_main(wav_path, text, language, prompt_wav, noise_scale=0.5):
     """
     language = dict_language[language]
 
-    phones, word2ph, norm_text = get_cleaned_text_final(text, language)
+    # phones, word2ph, norm_text = get_cleaned_text_final(text, language)
 
     spec = get_spepc(hps, prompt_wav) 
     codes = get_code_from_wav(wav_path)[None, None]  # 必须是 3D, [n_q, B, T]
@@ -434,10 +434,15 @@ def vc_main(wav_path, text, language, prompt_wav, noise_scale=0.5):
         quantized = F.interpolate(
             quantized, size=int(quantized.shape[-1] * 2), mode="nearest"
         )
+
+
+    #    def forward(self, y, y_lengths,  ge, test=None):
+
     _, m_p, logs_p, y_mask = vq_model.enc_p(
         quantized, torch.LongTensor([quantized.shape[-1]]), 
-        torch.LongTensor(phones)[None], torch.LongTensor([len(phones)]), ge
+        ge
     )
+
     z_p = m_p + torch.randn_like(m_p) * torch.exp(logs_p) * noise_scale
     z = vq_model.flow(z_p, y_mask, g=ge, reverse=True)
     o = vq_model.dec((z * y_mask)[:, :, :], g=ge)  # [B, D=1, T], torch.float32 (-1, 1)
@@ -448,48 +453,48 @@ def vc_main(wav_path, text, language, prompt_wav, noise_scale=0.5):
     yield hps.data.sampling_rate, (audio * 32768).astype(np.int16)
     
 
-with gr.Blocks(title="GPT-SoVITS-VC WebUI") as app:
+# with gr.Blocks(title="GPT-SoVITS-VC WebUI") as app:
     
-    gr.Markdown(
-        value=i18n("本软件以MIT协议开源, 作者不对软件具备任何控制力, 使用软件者、传播软件导出的声音者自负全责. <br>如不认可该条款, 则不能使用或引用软件包内任何代码和文件. 详见根目录<b>LICENSE</b>.")
-    )
+#     gr.Markdown(
+#         value=i18n("本软件以MIT协议开源, 作者不对软件具备任何控制力, 使用软件者、传播软件导出的声音者自负全责. <br>如不认可该条款, 则不能使用或引用软件包内任何代码和文件. 详见根目录<b>LICENSE</b>.")
+#     )
 
-    with gr.Group():
-        gr.Markdown(value=i18n("模型切换"))
+#     with gr.Group():
+#         gr.Markdown(value=i18n("模型切换"))
 
-        with gr.Row():
-            GPT_dropdown = gr.Dropdown(label=i18n("GPT模型列表"), choices=sorted(GPT_names, key=custom_sort_key), value=gpt_path, interactive=True)
-            SoVITS_dropdown = gr.Dropdown(label=i18n("SoVITS模型列表"), choices=sorted(SoVITS_names, key=custom_sort_key), value=sovits_path, interactive=True)
-            refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
-            refresh_button.click(fn=change_choices, inputs=[], outputs=[SoVITS_dropdown, GPT_dropdown])
-            SoVITS_dropdown.change(change_sovits_weights, [SoVITS_dropdown], [])
-            GPT_dropdown.change(change_gpt_weights, [GPT_dropdown], [])
+#         with gr.Row():
+#             GPT_dropdown = gr.Dropdown(label=i18n("GPT模型列表"), choices=sorted(GPT_names, key=custom_sort_key), value=gpt_path, interactive=True)
+#             SoVITS_dropdown = gr.Dropdown(label=i18n("SoVITS模型列表"), choices=sorted(SoVITS_names, key=custom_sort_key), value=sovits_path, interactive=True)
+#             refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
+#             refresh_button.click(fn=change_choices, inputs=[], outputs=[SoVITS_dropdown, GPT_dropdown])
+#             SoVITS_dropdown.change(change_sovits_weights, [SoVITS_dropdown], [])
+#             GPT_dropdown.change(change_gpt_weights, [GPT_dropdown], [])
         
-        gr.Markdown(value=i18n("* 请上传目标音色音频，要求说话人单一，声音干净"))
-        with gr.Row():
-            inp_ref = gr.Audio(label=i18n("请上传 3~10 秒内参考音频，超过会报警！"), type="filepath")
+#         gr.Markdown(value=i18n("* 请上传目标音色音频，要求说话人单一，声音干净"))
+#         with gr.Row():
+#             inp_ref = gr.Audio(label=i18n("请上传 3~10 秒内参考音频，超过会报警！"), type="filepath")
 
-        gr.Markdown(value=i18n("* 请填写需要变声/转换的源音频，以及对应文本"))
-        with gr.Row():
-            src_audio = gr.Audio(label=i18n('源音频'), type='filepath')
-            text = gr.Textbox(label=i18n("源音频对应文本"), value="")
-            text_language = gr.Dropdown(
-                label=i18n("文本语种"), choices=[i18n("中文"), i18n("英文"), i18n("日文"), i18n("中英混合"), i18n("日英混合"), i18n("多语种混合")], value=i18n("中文")
-            )
+#         gr.Markdown(value=i18n("* 请填写需要变声/转换的源音频，以及对应文本"))
+#         with gr.Row():
+#             src_audio = gr.Audio(label=i18n('源音频'), type='filepath')
+#             text = gr.Textbox(label=i18n("源音频对应文本"), value="")
+#             text_language = gr.Dropdown(
+#                 label=i18n("文本语种"), choices=[i18n("中文"), i18n("英文"), i18n("日文"), i18n("中英混合"), i18n("日英混合"), i18n("多语种混合")], value=i18n("中文")
+#             )
 
-            inference_button = gr.Button(i18n("合成语音"), variant="primary")
-            output = gr.Audio(label=i18n("变声后"))
+#             inference_button = gr.Button(i18n("合成语音"), variant="primary")
+#             output = gr.Audio(label=i18n("变声后"))
 
-        inference_button.click(
-            vc_main,
-            [src_audio, text, text_language, inp_ref],
-            [output],
-        )
+#         inference_button.click(
+#             vc_main,
+#             [src_audio, text, text_language, inp_ref],
+#             [output],
+#         )
 
-app.queue(max_size=1022).launch(
-    server_name="0.0.0.0",
-    inbrowser=True,
-    share=is_share,
-    server_port=vc_webui_port,
-    quiet=True,
-)
+# app.queue(max_size=1022).launch(
+#     server_name="0.0.0.0",
+#     inbrowser=True,
+#     share=is_share,
+#     server_port=vc_webui_port,
+#     quiet=True,
+# )

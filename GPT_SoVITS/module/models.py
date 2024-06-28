@@ -222,7 +222,7 @@ class TextEncoder(nn.Module):
 
         self.proj = nn.Conv1d(hidden_channels, out_channels * 2, 1)
 
-    def forward(self, y, y_lengths, text, text_lengths, ge, test=None):
+    def forward(self, y, y_lengths,  ge, test=None):
         y_mask = torch.unsqueeze(commons.sequence_mask(y_lengths, y.size(2)), 1).to(
             y.dtype
         )
@@ -231,14 +231,17 @@ class TextEncoder(nn.Module):
      
         y = self.encoder_ssl(y * y_mask, y_mask)
 
-        text_mask = torch.unsqueeze(
-            commons.sequence_mask(text_lengths, text.size(1)), 1
-        ).to(y.dtype)
+        # text_mask = torch.unsqueeze(
+        #     commons.sequence_mask(text_lengths, text.size(1)), 1
+        # ).to(y.dtype)
+
         if test == 1:
             text[:, :] = 0
-        text = self.text_embedding(text).transpose(1, 2)
-        text = self.encoder_text(text * text_mask, text_mask)
-        y = self.mrte(y, y_mask, text, text_mask, ge)
+        # text = self.text_embedding(text).transpose(1, 2)
+        # text = self.encoder_text(text * text_mask, text_mask)
+        text = None
+        text_mask = None
+        y = self.mrte(y, y_mask, text, text_mask, ge, test=1)
 
         y = self.encoder2(y * y_mask, y_mask)
 
